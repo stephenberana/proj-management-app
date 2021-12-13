@@ -1,0 +1,19 @@
+<h1>Project Management App</h1>
+
+
+<% if user_signed_in? %>
+  <h2>Welcome </h2>
+  <%= link_to 'Add Project',  new_project_path %>
+<%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
+<% else %>
+  <h2>Welcome Enter Your Organization Subdomain</h2>
+  <%= form_with url: search_organization_path, method: :get do |form| %>
+    <%= form.text_field :organization %>
+    <%= form.submit "Search" %>
+  <% end %>
+  <% if @organization %>
+    <%= @organization.name %> | <%= link_to 'Select',  new_user_session_url(subdomain: @organization.subdomain) %>
+  <% else %>
+    <p> Organization doesn't exists. Create </p>
+<% end %>
+<% end %>
