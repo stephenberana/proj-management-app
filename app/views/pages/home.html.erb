@@ -1,0 +1,27 @@
+<h1>Project Management App</h1>
+<% if user_signed_in? %>
+  <h3>List of Org Projects</h3>
+  <% if @projects.count == 0 %>
+    <p>No Projects to Display </p>
+  <% else %>
+    <ul>
+    <% @projects.map do |project| %>
+      <li><%= project.name %></li>
+    <% end %>
+    </ul>
+  <% end %>
+
+  <h3>SOON: List of Org's Employee </h3>
+<% else %>
+  <h1> Welcome</h1>
+<% end %>
+
+
+ In this page you can <% if user_signed_in? %>
+ <%= link_to 'Create Organization',  new_organization_path %> | 
+ <%= link_to 'Create New Project',  new_project_path %> |
+ <%= link_to 'Log Out',  destroy_user_session_path, method: :delete %>
+<% else %>
+ <%= link_to 'Sign In', new_user_session_path %>
+<% end %> <% if !user_signed_in? %> or  <%= link_to 'Sign Up', new_organization_path %>(create organization) and select plan (free or premium) <% end %>
+
