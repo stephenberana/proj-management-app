@@ -14,6 +14,6 @@
   <% if @organization %>
     <%= @organization.name %> | <%= link_to 'Select',  new_user_session_url(subdomain: @organization.subdomain) %>
   <% else %>
-    <p> Organization doesn't exists. Create </p>
+    <p> Organization doesn't exists. <%= link_to 'Create Organization', new_organization_path %> </p>
 <% end %>
 <% end %>
