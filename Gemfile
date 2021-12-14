@@ -65,3 +65,7 @@ gem 'figaro'
 
 #install devise for user authentication and registration
 gem 'devise'
+
+gem "acts_as_tenant", "~> 0.5.1"
+
+gem "bootstrap", "~> 5.1"

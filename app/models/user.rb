@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable
   acts_as_tenant :organization
+  has_one :payment
+  accepts_nested_attributes_for :payment
 end
