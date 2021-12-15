@@ -5,4 +5,7 @@ class ApplicationController < ActionController::Base
     dashboard_path
   end
   
+  def authenticate_inviter!
+    authenticate_admin!(force: true)
+  end
 end

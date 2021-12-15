@@ -5,6 +5,8 @@
   <h2>Welcome </h2>
   <%= link_to 'Add Project',  new_project_path %>
 <%= link_to 'Sign Out',   destroy_admin_session_path, method: :delete %>
+<%= link_to 'Sign Out - member',    destroy_member_session_path, method: :delete %>
+
 <% else %>
   <h2>Welcome Enter Your Organization Subdomain</h2>
   <%= form_with url: search_organization_path, method: :get do |form| %>
