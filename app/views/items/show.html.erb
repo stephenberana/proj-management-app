@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @item.name %>
+</p>
+
+<p>
+  <strong>Key:</strong>
+   <td><%= s3_link 1, @item.key %></td>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @item.project_id %>
+</p>
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>

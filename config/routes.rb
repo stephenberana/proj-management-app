@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :items
   resources :projects
   resources :organizations
   root 'organizations#home'

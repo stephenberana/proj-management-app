@@ -9,6 +9,7 @@
   <strong>Name:</strong>
   <%= @project.name %>
 </p>
-
+<%= render 'items/list', items: @project.items %>
+<%= link_to 'New Item', new_item_path(project_id: @project.id) %>
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>
