@@ -63,6 +63,8 @@ class OrganizationsController < ApplicationController
     @organization = Organization.check_db(params[:organization])
     if @organization
       @organization
+    else
+      flash[:notice] = "Organization Doesn't exists"
     end
     render 'organizations/home'
   end

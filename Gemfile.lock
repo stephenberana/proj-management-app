@@ -89,6 +89,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-bootstrap-views (1.1.0)
     devise_invitable (2.0.5)
       actionmailer (>= 5.0)
       devise (>= 4.6)
@@ -230,6 +231,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise
+  devise-bootstrap-views (~> 1.0)
   devise_invitable (~> 2.0.0)
   jbuilder (~> 2.7)
   listen (~> 3.3)

@@ -11,17 +11,31 @@
     </ul>
   <% end %>
 
-  <h3>SOON: List of Org's Employee </h3>
+  <h3>List of Org's Employee </h3>
+  <% if @members.count == 0 %>
+    <p>No Members to Display </p>
+  <% else %>
+    <ul>
+    <% @members.map do |member| %>
+      <li><%= member.email %></li>
+    <% end %>
+    </ul>
+  <% end %>
 <% else %>
   <h1> Welcome</h1>
 <% end %>
 
+<br>
+======================================<br>
+<% if admin_signed_in? %>
+  Invite new member/employee <br>
+  Add new project <br>
+  Edit Organization's details <br>
+  Change Organization's Plan <br>
+  <%= link_to 'Log Out-admin', destroy_admin_session_path, method: :delete %>
+  
+  <% else %>
+  <%= link_to 'Log Out-member', destroy_member_session_path, method: :delete %>
 
- In this page you can <% if user_signed_in? %>
- <%= link_to 'Create Organization',  new_organization_path %> | 
- <%= link_to 'Create New Project',  new_project_path %> |
- <%= link_to 'Log Out', destroy_admin_session_path, method: :delete %>
-<% else %>
- <%= link_to 'Sign In', new_admin_session_path %>
-<% end %> <% if !user_signed_in? %> or  <%= link_to 'Sign Up', new_organization_path %>(create organization) and select plan (free or premium) <% end %>
 
+<% end %>

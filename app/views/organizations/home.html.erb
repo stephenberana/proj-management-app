@@ -14,8 +14,11 @@
     <%= form.submit "Search" %>
   <% end %>
   <% if @organization %>
-    <%= @organization.name %> | <%= link_to 'Log in as admin',  new_admin_session_url(subdomain: @organization.subdomain) %>
+    <%= @organization.name %> | <%= link_to 'Log In as admin',  new_admin_session_url(subdomain: @organization.subdomain) %> | 
+                                <%= link_to 'Log In as member',  new_member_session_url(subdomain: @organization.subdomain) %>
   <% else %>
-    <p> Organization doesn't exists. <%= link_to 'Create Organization', new_organization_path %> </p>
+     <%= link_to 'Create Organization', new_organization_path %> 
 <% end %>
 <% end %>
+
+
