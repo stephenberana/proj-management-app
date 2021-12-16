@@ -14,7 +14,7 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr>
-        <td><%= project.organization_id %></td>
+        <td><%= Organization.find(project.organization_id).name  %></td>
         <td><%= project.name %></td>
         <td><%= link_to 'Show', project %></td>
         <td><%= link_to 'Edit', edit_project_path(project) %></td>
