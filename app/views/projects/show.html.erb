@@ -2,7 +2,7 @@
 
 <p>
   <strong>Organization:</strong>
-  <%= @project.organization_id %>
+<td><%= Organization.find(@project.organization_id).name  %></td>
 </p>
 
 <p>
