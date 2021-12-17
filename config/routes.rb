@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :user_projects
+  put 'user_projects', to: "user_projects#create"
   resources :items
   resources :projects
   resources :organizations

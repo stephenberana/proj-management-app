@@ -10,6 +10,16 @@
   <%= @project.name %>
 </p>
 
+<% @members.map do |member| %>
+      <li><%= member.email %>
+        
+        </td></li>
+   <%#fix route %>
+         <%= link_to 'Add',
+                      user_project_path(id: @project.id, organization_id: ActsAsTenant.current_tenant.id, user_id: member.id),
+                      :method => :put,
+                      :class => 'btn btn-xs btn-success' %>
+      <% end %>  
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', dashboard_path %>
 <%= render 'items/list', items: @project.items %>
