@@ -8,7 +8,7 @@
 <p>
   <strong>Key:</strong>
 
-    <td><%= s3_link 1, @item.key %></td>
+    <td><%= s3_link ActsAsTenant.current_tenant.id, @item.key %></td>
  
 </p>
 

@@ -16,7 +16,7 @@
     <% @project.items.all.each do |item| %>
       <tr>
         <td><%= item.name %></td>
-        <td><%= s3_link 1, item.key %></td>
+        <td><%= s3_link ActsAsTenant.current_tenant.id, item.key %></td>
         <td><%= link_to 'Show', item %></td>
         <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

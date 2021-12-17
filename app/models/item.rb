@@ -6,8 +6,8 @@ class Item < ApplicationRecord
 
   def upload_to_s3
     s3 = Aws::S3::Resource.new(region:'us-east-2')
-    
-    obj = s3.bucket("proj-management-app").object("#{1}/#{upload.original_filename}")
+    org =  User.find(ActsAsTenant.current_tenant.id).organization.name
+    obj = s3.bucket("proj-management-app").object("#{org}/#{upload.original_filename}")
     obj.upload_file(upload.path, acl:'public-read', content_type:"")
     self.key = obj.public_url
   end
