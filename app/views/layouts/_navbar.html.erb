@@ -20,6 +20,7 @@
         </li>
       
         <% if current_user.type === "Admin" %>
+            <%#todo: drop down%>
             <li class="nav-item">
                 <%= link_to 'New Member', new_member_invitation_path, class: "nav-link active" %>
             </li>
@@ -27,12 +28,11 @@
             <li class="nav-item">
                 <%= link_to 'New Admin', new_admin_invitation_path, class: "nav-link active" %>
             </li>
-        
+            <%#-------%>
         <% end %>
         <% else %>
-            <li class="nav-item">
-                <%= link_to 'Search', root_path, class: "nav-link active" %>
-            </li>
+            <%= link_to 'Home', root_path, class: "nav-link active" %>
+            <%= link_to 'Create Organization', new_organization_path, class: "nav-link active" %> 
       <% end %>
     </ul>
 
@@ -49,6 +49,13 @@
                 <%= link_to 'Sign Out', destroy_member_session_path, method: :get, class: "nav-link" %>
             </li>
             <% end %>
+        <% else %>
+        <%#todo: drop down%>
+           <% if @organization %>
+                <%= link_to 'Log In as admin',  new_admin_session_url(subdomain: @organization.subdomain), class: "nav-link active" %> 
+                <%= link_to 'Log In as member',  new_member_session_url(subdomain: @organization.subdomain), class: "nav-link active" %>
+            <% end %>
+        <%#---------------%>
       <% end %>
     </ul>
   </div>
