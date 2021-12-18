@@ -16,7 +16,7 @@
         </td></li>
    <%#fix route %>
          <%= link_to 'Add',
-                      user_project_path(id: @project.id, organization_id: ActsAsTenant.current_tenant.id, user_id: member.id),
+                      user_project_url(project_id: @project.id, user_id: member.id),
                       :method => :put,
                       :class => 'btn btn-xs btn-success' %>
       <% end %>  
