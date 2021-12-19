@@ -21,7 +21,7 @@ class UserProjectsController < ApplicationController
 
   # POST /user_projects or /user_projects.json
   def create
-    @user_project = UserProject.new(user_project_params)
+    @user_project = UserProject.new(user_id: params[:user_id], project_id: params[:project_id])
 
     respond_to do |format|
       if @user_project.save

@@ -11,18 +11,16 @@
     </div>
   <% end %>
 
-<div class="control-group">
+  <div class="control-group mb-2">
     <%= form.label :name, :class => 'control-label' %>
-    <div class="controls">
-      <%= form.text_field :name, :class => 'form-control' %>
-    </div>
+    <%= form.text_field :name, :class => 'form-control' %>
   </div>
-  <div class="control-group">
+
+  <div class="control-group mb-2">
     <%= form.label :upload, value: 'File to upload', :class => 'control-label' %>
-    <div class="controls">
-      <%= form.file_field :upload, :class => 'form-control' %>
-    </div>
+    <%= form.file_field :upload, :class => 'form-control' %>
   </div>
+
   <%= form.hidden_field :project_id %>
 
   <div class="actions">

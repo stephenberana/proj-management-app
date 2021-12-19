@@ -11,7 +11,7 @@
     <% end %>
     </ul>
   <% end %>
-
+<%= current_user.type %>
   <h3>List of Org's Employee </h3>
   <% if @members.count == 0 %>
     <p>No Members to Display </p>
@@ -31,14 +31,12 @@
 <br>
 ======================================<br>
 <% if admin_signed_in? %>
-  Invite new member/employee <br>
-  Add new project <br>
-  Edit Organization's details <br>
-  Change Organization's Plan <br>
-  <%= link_to 'Log Out-admin', destroy_admin_session_path, method: :delete %>
-  
-  <% else %>
-  <%= link_to 'Log Out-member', destroy_member_session_path, method: :delete %>
-
+  <strong>
+    TODO:
+  </strong><br>
+    Add Organization's Plan<br>
+    Add user to project<br>
+    Edit Organization's details <br>
+    Change Organization's Plan <br>
 
 <% end %>

@@ -3,8 +3,7 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!
   # GET /projects or /projects.json
   def index
-    @projects = Project.all
-   
+    @projects = current_user.type == "Admin" ? Project.all : current_user.projects
   end
 
   # GET /projects/1 or /projects/1.json

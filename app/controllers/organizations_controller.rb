@@ -64,7 +64,7 @@ class OrganizationsController < ApplicationController
     if @organization
       @organization
     else
-      flash[:notice] = "Organization Doesn't exists"
+      flash[:alert] = "Organization Doesn't exists"
     end
     render 'organizations/home'
   end
