@@ -8,10 +8,8 @@
   <strong>Name:</strong>
   <%= @project.name %>
 </p>
-
-<% @members.map do |member| %>
-
 <h5>Employees</h5>
+<% @members.map do |member| %>
     <div class="d-flex">
        <%#only display if not added yet to user project %>
        <%#validate uniqueness of user in project %>
