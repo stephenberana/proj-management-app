@@ -51,7 +51,7 @@
             <% end %>
         <% else %>
         <%#todo: drop down%>
-           <% if @organization %>
+           <% if Organization.check_db(params[:organization]) %>
                 <%= link_to 'Log In as admin',  new_admin_session_url(subdomain: @organization.subdomain), class: "nav-link active" %> 
                 <%= link_to 'Log In as member',  new_member_session_url(subdomain: @organization.subdomain), class: "nav-link active" %>
             <% end %>
