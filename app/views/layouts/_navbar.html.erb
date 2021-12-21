@@ -14,19 +14,21 @@
         <li class="nav-item">
             <%= link_to 'Home', dashboard_path, class: "nav-link active" %>
         </li>
-    
+        
+        <% if current_user.type == "Admin" %>
         <li class="nav-item active">
             <%= link_to 'New Project', new_project_path, class: "nav-link active" %>
         </li>
-      
+        <% end %>
+
         <% if current_user.type === "Admin" %>
             <%#todo: drop down%>
             <li class="nav-item">
-                <%= link_to 'New Member', new_member_invitation_path, class: "nav-link active" %>
+                <%= link_to 'Invite Member', new_member_invitation_path, class: "nav-link active" %>
             </li>
     
             <li class="nav-item">
-                <%= link_to 'New Admin', new_admin_invitation_path, class: "nav-link active" %>
+                <%= link_to 'Invite Admin', new_admin_invitation_path, class: "nav-link active" %>
             </li>
             <%#-------%>
         <% end %>
@@ -51,7 +53,7 @@
             <% end %>
         <% else %>
         <%#todo: drop down%>
-           <% if @organization %>
+           <% if Organization.check_db(params[:organization]) %>
                 <%= link_to 'Log In as admin',  new_admin_session_url(subdomain: @organization.subdomain), class: "nav-link active" %> 
                 <%= link_to 'Log In as member',  new_member_session_url(subdomain: @organization.subdomain), class: "nav-link active" %>
             <% end %>

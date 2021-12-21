@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!
   # GET /items/1 or /items/1.json
   def show
+    @projects = Project.all
   end
 
   # GET /items/new

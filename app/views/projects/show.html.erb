@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 
 <p>
   <strong>Organization:</strong>
@@ -9,9 +8,29 @@
   <strong>Name:</strong>
   <%= @project.name %>
 </p>
+ <% if current_user.type === "Admin" %>
+<h5>Employees</h5>
+    <% @project = Project.find(@project.id.to_i) %>
+    <% @user_projects = @project.user_projects.pluck(:user_id) %>
+    <% @project_users = @members.where.not(id: @user_projects) %>
+    <% if  @project_users.count > 0 %>
+      <% @project_users.map do |member| %>
+          <div class="d-flex mb-2 align-items-center">
+            <p class="mb-0"><%= member.email %></p>
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
+              <%= link_to 'Add to project',
+                            user_projects_path(project_id: @project.id, user_id: member.id),
+                            :method => :put,
+                            :class => 'btn btn-xs btn-success' %> 
+          </div>
+      <% end %>
+    <% else %>
+      <p>No members to display</p>
+    <% end %>
+     <% end %>
+<%= link_to 'Upload Item', new_item_path(project_id: @project.id) %> |
+<%= link_to 'Edit Project', edit_project_path(@project) %> |
 <%= link_to 'Back', dashboard_path %>
 <%= render 'items/list', items: @project.items %>
-<%= link_to 'New Item', new_item_path(project_id: @project.id) %>
+
 

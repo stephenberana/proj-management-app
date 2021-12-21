@@ -1,5 +1,9 @@
-<h1>Items</h1>
 
+<h1>Items</h1>
+  <% if @project.items.empty? %>
+   
+  <p> No items to display </p>
+  <% else %>
 <table>
   <thead>
     <tr>
@@ -11,7 +15,7 @@
 
   <tbody>
 
-    <% @project.items.all.each do |item| %>
+    <% @project.items.each do |item| %>
       <tr>
         <td><%= item.name %></td>
         <td><%= s3_link ActsAsTenant.current_tenant.id, item.key %></td>
@@ -20,8 +24,9 @@
       </tr>
   <% end %>
   </tbody>
-</table>
+  </table>
+ 
+  <% end %>
 
-<br>
 
 

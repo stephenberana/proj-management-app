@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Item Name:</strong>
   <%= @item.name %>
 </p>
 
@@ -14,7 +14,8 @@
 
 <p>
   <strong>Project:</strong>
-  <%= @item.project_id %>
+  <%= @item.project.name %>
+
 </p>
 
 <%= link_to 'Back', dashboard_path %>
