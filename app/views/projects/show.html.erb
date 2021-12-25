@@ -18,7 +18,7 @@
           <div class="d-flex mb-2 align-items-center">
             <p class="mb-0"><%= member.email %></p>
 
-              <%= link_to 'Add to project',
+              <%= link_to 'Add',
                             user_projects_path(project_id: @project.id, user_id: member.id),
                             :method => :put,
                             :class => 'btn btn-xs btn-success' %> 
@@ -27,7 +27,24 @@
     <% else %>
       <p>No members to display</p>
     <% end %>
-     <% end %>
+    <h5>Project Employees</h5>
+         <% @added_users = @members.where(id: @user_projects) %>
+     <% if  @added_users.count > 0 %>
+      <% @added_users.map do |member| %>  
+          <div class="d-flex mb-2 align-items-center">
+            <p class="mb-0"><%= member.email %></p>
+
+              <%= link_to 'Remove',
+                            user_project_path(member.user_projects.ids),
+                            method: :delete, data: { confirm: 'Are you sure?' },
+                            :class => 'btn btn-xs btn-danger' %> 
+          </div>
+      <% end %>
+    <% else %>
+      <p>No members in project</p>
+    <% end %>
+  <% end %>
+
 <%= link_to 'Upload Item', new_item_path(project_id: @project.id) %> |
 <%= link_to 'Edit Project', edit_project_path(@project) %> |
 <%= link_to 'Back', dashboard_path %>

@@ -14,8 +14,8 @@
   <tbody>
     <% @user_projects.each do |user_project| %>
       <tr>
-        <td><%= user_project.project_id %></td>
-        <td><%= user_project.user_id %></td>
+        <td><%= user_project.project.name%></td>
+        <td><%= user_project.user.email %></td>
         <td><%= link_to 'Show', user_project %></td>
         <td><%= link_to 'Edit', edit_user_project_path(user_project) %></td>
         <td><%= link_to 'Destroy', user_project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
