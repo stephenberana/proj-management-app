@@ -1,5 +1,6 @@
 class UserProjectsController < ApplicationController
   before_action :set_user_project, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /user_projects or /user_projects.json
   def index
@@ -65,5 +66,11 @@ class UserProjectsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_project_params
       params.require(:user_project).permit(:project_id, :user_id)
+    end
+
+    def require_admin
+      return if current_user.type == "Admin"
+      flash[:alert] = 'Access denied'
+      redirect_to root_path
     end
 end

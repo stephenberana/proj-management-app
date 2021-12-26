@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: %i[ show edit update destroy users add_user]
+  before_action :set_project, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
   # GET /projects or /projects.json
   def index
@@ -58,24 +58,7 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def users
-    @project_users = (@project.users + (User.where(organization_id: ActsAsTenant.current_tenant.id, type: "Admin"))) - [current_user]
-    @other_users = @organization.users.where(type: "Member") - (@project_users + [current_user])
-  end
-
-  def add_user
-    @project_user = UserProject.new(user_id: params[:user_id], project_id: @project.id)
-
-    respond_to do |format|
-      if @project_user.save
-        format.html { redirect_to dashboard_path,
-          notice: "User was successfully added to project" }
-      else
-        format.html { redirect_to users_tenant_project_url(id: @project.id, tenant_id: @project.tenant_id),
-          error: "User was not added to project" }
-      end
-    end
-  end
+ 
 
   private
     # Use callbacks to share common setup or constraints between actions.

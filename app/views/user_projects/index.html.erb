@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <h1>User Projects</h1>
-
+<% if @user_projects %>
+  <p>No employee added to project</p>
+  <% else %>
 <table>
   <thead>
     <tr>
@@ -23,7 +25,7 @@
     <% end %>
   </tbody>
 </table>
-
+<% end %>
 <br>
 
 <%= link_to 'New User Project', new_user_project_path %> |
