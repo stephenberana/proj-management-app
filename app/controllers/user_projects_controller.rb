@@ -1,6 +1,7 @@
 class UserProjectsController < ApplicationController
   before_action :set_user_project, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
+  before_action :require_admin
 
   # GET /user_projects or /user_projects.json
   def index
@@ -71,6 +72,6 @@ class UserProjectsController < ApplicationController
     def require_admin
       return if current_user.type == "Admin"
       flash[:alert] = 'Access denied'
-      redirect_to root_path
+      redirect_to dashboard_path
     end
 end
