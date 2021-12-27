@@ -1,48 +1,65 @@
 
-<p>
+<h3 class="p-1">
   <strong>Organization:</strong>
 <td><%= Organization.find(@project.organization_id).name  %></td>
-</p>
+</h3>
 
-<p>
+<h3 class="p-1">
   <strong>Name:</strong>
   <%= @project.name %>
-</p>
+</h3>
+
  <% if current_user.type === "Admin" %>
-<h5>Employees</h5>
+ <div class="row">
+  <div class="col-sm-6 ml-auto">
+    <div class="card mb-2"  style="height: 300px; ">
+      <div class="card-body">
+    <h5>Employees</h5>
     <% @project = Project.find(@project.id.to_i) %>
     <% @user_projects = @project.user_projects.pluck(:user_id) %>
     <% @project_users = @members.where.not(id: @user_projects) %>
     <% if  @project_users.count > 0 %>
-      <% @project_users.map do |member| %>
-          <div class="d-flex mb-2 align-items-center">
-            <p class="mb-0"><%= member.email %></p>
+        <% @project_users.map do |member| %>
+            <ul class="list-group user_proj">
+              <li class="list-group-item d-flex justify-content-between align-items-center"><%= member.email %>
 
-              <%= link_to 'Add',
-                            user_projects_path(project_id: @project.id, user_id: member.id),
-                            :method => :put,
-                            :class => 'btn btn-xs btn-success' %> 
-          </div>
-      <% end %>
-    <% else %>
+                <%= link_to 'Add',
+                              user_projects_path(project_id: @project.id, user_id: member.id),
+                              :method => :put,
+                              :class => 'btn btn-xs btn-success' %> 
+                              </li>
+            </ul>
+        <% end %>
+      <% else %>
       <p>No members to display</p>
     <% end %>
+       </div>
+    </div>
+  </div>
+    <div class="col-sm-6 mr-auto">
+        <div class="card mb-2" style="height: 300px;">
+          <div class="card-body">
     <h5>Project Employees</h5>
-         <% @added_users = @members.where(id: @user_projects) %>
-     <% if  @added_users.count > 0 %>
-      <% @added_users.map do |member| %>  
-          <div class="d-flex mb-2 align-items-center">
-            <p class="mb-0"><%= member.email %></p>
+      <% @added_users = @members.where(id: @user_projects) %>
+      <% if  @added_users.count > 0 %>
+        <% @added_users.map do |member| %>  
+              <ul class="list-group">
+               <li class="list-group-item d-flex justify-content-between align-items-center"><%= member.email %>
 
-              <%= link_to 'Remove',
-                            user_project_path(member.user_projects.ids),
-                            method: :delete, data: { confirm: 'Are you sure?' },
-                            :class => 'btn btn-xs btn-danger' %> 
-          </div>
+                <%= link_to 'Remove',
+                              user_project_path(member.user_projects.ids),
+                              method: :delete, data: { confirm: 'Are you sure?' },
+                              :class => 'btn btn-xs btn-danger' %> 
+                              </li>
+            </ul>
+        <% end %>
+      <% else %>
+        <p>No members in project</p>
       <% end %>
-    <% else %>
-      <p>No members in project</p>
-    <% end %>
+         </div>
+    </div>
+  </div>
+  </div>
   <% end %>
 
 <%= link_to 'Upload Item', new_item_path(project_id: @project.id) %> |
