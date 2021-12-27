@@ -1,64 +1,72 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-    <% if user_signed_in? %>
-        <%= link_to 'Logo', dashboard_path, class: "navbar-brand font-weight-bold" %>
-       <% else %>
-        <%= link_to 'Logo', root_path, class: "navbar-brand font-weight-bold" %>
-    <% end %>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-     <% if user_signed_in? %>
-        <li class="nav-item">
-            <%= link_to 'Home', dashboard_path, class: "nav-link active" %>
-        </li>
-        
-        <% if current_user.type == "Admin" %>
-        <li class="nav-item active">
-            <%= link_to 'New Project', new_project_path, class: "nav-link active" %>
-        </li>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+        <% if user_signed_in? %>
+                <%= link_to 'Logo', dashboard_path, class: "navbar-brand font-weight-bold" %>
+            <% else %>
+                <%= link_to 'Logo', root_path, class: "navbar-brand font-weight-bold" %>
         <% end %>
-
-        <% if current_user.type === "Admin" %>
-            <%#todo: drop down%>
-            <li class="nav-item">
-                <%= link_to 'Invite Member', new_member_invitation_path, class: "nav-link active" %>
-            </li>
-    
-            <li class="nav-item">
-                <%= link_to 'Invite Admin', new_admin_invitation_path, class: "nav-link active" %>
-            </li>
-            <%#-------%>
-        <% end %>
-        <% else %>
-            <%= link_to 'Home', root_path, class: "nav-link active" %>
-            <%= link_to 'Create Organization', new_organization_path, class: "nav-link active" %> 
-      <% end %>
-    </ul>
-
-
-    <ul class="navbar-nav ml-auto">
-      <% if user_signed_in?  %>
-           <% if current_user.type === "Admin" %>
-            <li class="nav-item active">
-                <%= link_to 'Sign Out', destroy_admin_session_path, method: :get, class: "nav-link" %>
-            </li>
-
-         <% else %>
-            <li class="nav-item active">
-                <%= link_to 'Sign Out', destroy_member_session_path, method: :get, class: "nav-link" %>
-            </li>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNavDropdown">
+            <% if user_signed_in? %>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <%= link_to 'Home', dashboard_path, class: "nav-link active" %>
+                    </li>
+                    <% if current_user.type == "Admin" %>
+                        <li class="nav-item">
+                        <%= link_to 'New Project', new_project_path, class: "nav-link active" %>
+                        </li>
+                    <% end %>
+                    <% if current_user.type === "Admin" %>
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Invite
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><%= link_to 'Invite Member', new_member_invitation_path, class: "dropdown-item" %></li>
+                            <li><%= link_to 'Invite Admin', new_admin_invitation_path, class: "dropdown-item" %></li>
+                        </ul>
+                        </li>
+                    <% end %>
+                </ul>
+                  <% else %>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <%= link_to 'Home', dashboard_path, class: "nav-link active" %>
+                    </li>
+                </ul>
             <% end %>
-        <% else %>
-        <%#todo: drop down%>
-           <% if Organization.check_db(params[:organization]) %>
-                <%= link_to 'Log In as admin',  new_admin_session_url(subdomain: @organization.subdomain), class: "nav-link active" %> 
-                <%= link_to 'Log In as member',  new_member_session_url(subdomain: @organization.subdomain), class: "nav-link active" %>
+           
+
+            
+            <% if user_signed_in?  %>
+                <ul class="navbar-nav ml-auto">
+                <% if current_user.type === "Admin" %>
+                    <li class="nav-item active">
+                        <%= link_to 'Sign Out', destroy_admin_session_path, method: :get, class: "nav-link" %>
+                    </li>
+                 <% else %>
+                    <li class="nav-item active">
+                        <%= link_to 'Sign Out', destroy_member_session_path, method: :get, class: "nav-link" %>
+                    </li>
+                <% end %>
+              
+            <% else %>
+                <% if Organization.check_db(params[:organization]) %>
+                <div class="dropdown ml-auto ">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Sign In
+                    </button>
+                    <ul class="dropdown-menu mx-auto" aria-labelledby="dropdownMenuButton1">
+                        <li><%= link_to 'Admin Sign In',  new_admin_session_url(subdomain: @organization.subdomain), class: "dropdown-item" %></li>
+                        <li><%= link_to 'Member Sign In',  new_member_session_url(subdomain: @organization.subdomain), class: "dropdown-item" %></li>
+                    </ul>
+                </div>
+                <% end %>
+                   </ul>
             <% end %>
-        <%#---------------%>
-      <% end %>
-    </ul>
+    </div>
   </div>
 </nav>
