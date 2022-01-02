@@ -29,4 +29,53 @@
   <div class="actions">
     <%= form.submit %>
   </div>
+
+<script language="Javascript">
+  Stripe.setPublishableKey("<%= ENV['STRIPE_TEST_PUBLISHABLE_KEY'] %>");
+</script>
+
+Editing Organization Plan:
+
+<%= form_for @organization, url: update_plan_path, html: {class: "#{class_name_for_organization_form(@organization)}"} do |f| %>
+    <div class="form-group col-md-12 no-side-padding">
+        <%= f.label :name, 'Organization' %>
+        <span class='description'>(unique name for org)</span>
+        <%= f.text_field :name, required: true, class: "form-control"%>
+    </div>
+    <% if @organization.payment.blank?%>
+        <%= fields_for(:payment) do |p| %>
+        <div class="row col-md-12">
+            <div class="form-group col-md-4 no-left-padding">    
+                <%= p.label :card_number, "Card Number", data: {stripe: 'label'} %>
+                <%= p.text_field :card_number, class: "form-control", required: true, data: {stripe: 'number'} %>
+            </div>
+            <div class="form-group col-md-12">
+                <%= p.label :card_cvv, "Card CVV", data: {stripe: 'label'} %>
+                <%= p.text_field :card_cvv, class: "form-control", required: true, data: {stripe: 'cvv'} %>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-md-12">
+                        <%= p.label :card_expires, "Card Expiration Date", data: {stripe: 'label'} %>
+                </div>
+                <div class="col-md-3">
+                        <%= p.select :card_expires_month,
+                                    options_for_select(Payment.month_options),
+                                    { include_blank: 'Month'},
+                                    'data-stripe' => "exp-month",
+                                    class: "form-control", required: true %>
+                </div>
+                <div class="col-md-3">
+                        <%= p.select :card_expires_year,
+                                    options_for_select(Payment.year_options.push)
+                                    { include_blank: 'Year'},
+                                    class: "form-control",
+                                    data: {stripe: "exp-year"}, required: true 
+                        %>
+                </div>
+            </div>    
+        </div>    
+        <% end %>
+    <% end %>    
+<% end %>
+
 <% end %>
