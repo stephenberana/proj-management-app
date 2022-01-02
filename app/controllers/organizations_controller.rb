@@ -28,7 +28,7 @@ class OrganizationsController < ApplicationController
 
     respond_to do |format|
       if @organization.save
-        format.html { redirect_to  new_user_registration_url(subdomain: @organization.subdomain), notice: "Organization was successfully created." }
+        format.html { redirect_to  new_admin_registration_url(subdomain: @organization.subdomain), notice: "Organization was successfully created." }
         format.json { render :show, status: :created, location: @organization }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -63,6 +63,8 @@ class OrganizationsController < ApplicationController
     @organization = Organization.check_db(params[:organization])
     if @organization
       @organization
+    else
+      flash[:alert] = "Organization Doesn't exists"
     end
     render 'organizations/home'
   end

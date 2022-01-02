@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!, :except => [:home]
+  before_action :authenticate_user!
   def home
-    @projects = Project.all
+    @projects = current_user.type == "Admin" ? Project.all : current_user.projects
+    @members = Member.all
   end
 end

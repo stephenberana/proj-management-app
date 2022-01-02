@@ -3,11 +3,13 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!
   # GET /projects or /projects.json
   def index
-    @projects = Project.all
+    @projects = current_user.type == "Admin" ? Project.all : current_user.projects
   end
 
   # GET /projects/1 or /projects/1.json
   def show
+    @members = Member.all
+
   end
 
   # GET /projects/new
@@ -22,7 +24,7 @@ class ProjectsController < ApplicationController
   # POST /projects or /projects.json
   def create
     @project = Project.new(project_params)
-
+    @project.users << current_user
     respond_to do |format|
       if @project.save
         format.html { redirect_to dashboard_path, notice: "Project was successfully created." }
@@ -56,6 +58,8 @@ class ProjectsController < ApplicationController
     end
   end
 
+ 
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
@@ -64,6 +68,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:name)
+      params.require(:project).permit(:name, :completion_date)
     end
 end

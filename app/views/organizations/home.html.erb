@@ -1,19 +1,28 @@
+<div class="d-flex flex-column align-items-center">
 <h1>Project Management App</h1>
-
 
 <% if user_signed_in? %>
   <h2>Welcome </h2>
   <%= link_to 'Add Project',  new_project_path %>
-<%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
+<%= link_to 'Sign Out',   destroy_admin_session_path, method: :delete %>
+<%= link_to 'Sign Out - member',    destroy_member_session_path, method: :delete %>
+
 <% else %>
-  <h2>Welcome Enter Your Organization Subdomain</h2>
+  <h3>Welcome! Enter Your Organization Subdomain</h3>
   <%= form_with url: search_organization_path, method: :get do |form| %>
     <%= form.text_field :organization %>
     <%= form.submit "Search" %>
   <% end %>
   <% if @organization %>
-    <%= @organization.name %> | <%= link_to 'Select',  new_user_session_url(subdomain: @organization.subdomain) %>
+    <h4 class="my-3"><%= @organization.name %> </h4>
+    <div class='control-group' >
+    <%= link_to 'Log In as admin',  new_admin_session_url(subdomain: @organization.subdomain) %> | 
+    <%= link_to 'Log In as member',  new_member_session_url(subdomain: @organization.subdomain) %>
+    </div>
   <% else %>
-    <p> Organization doesn't exists. <%= link_to 'Create Organization', new_organization_path %> </p>
+     <%= link_to 'Create Organization', new_organization_path %> 
 <% end %>
 <% end %>
+</div>
+
+

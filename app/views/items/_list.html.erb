@@ -1,0 +1,32 @@
+
+<h1>Items</h1>
+  <% if @project.items.empty? %>
+   
+  <p> No items to display </p>
+  <% else %>
+<table class="table">
+  <thead class="table-dark">
+    <tr>
+      <th>Name</th>
+      <th>Key</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <% @project.items.each do |item| %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= s3_link ActsAsTenant.current_tenant.id, item.key %></td>
+        <td><%= link_to 'Show', item, class: 'btn btn-xs btn-info' %></td>
+        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' %></td>
+      </tr>
+  <% end %>
+  </tbody>
+  </table>
+ 
+  <% end %>
+
+
+
