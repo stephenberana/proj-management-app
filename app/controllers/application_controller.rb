@@ -9,4 +9,9 @@ class ApplicationController < ActionController::Base
   def authenticate_inviter!
     authenticate_admin!(force: true)
   end
+
+  def current_project (project_id)
+     @current_project ||= Project.find( project_id )
+  end
+
 end

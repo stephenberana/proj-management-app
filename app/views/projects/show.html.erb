@@ -1,86 +1,30 @@
-
-<p>
-  <strong>Organization:</strong>
-<td><%= Organization.find(@project.organization_id).name  %></td>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @project.name %>
-</p>
- <% if current_user.type === "Admin" %>
-<h5>Employees</h5>
-    <% @project = Project.find(@project.id.to_i) %>
-    <% @user_projects = @project.user_projects.pluck(:user_id) %>
-    <% @project_users = @members.where.not(id: @user_projects) %>
-    <% if  @project_users.count > 0 %>
-      <% @project_users.map do |member| %>
-          <div class="d-flex mb-2 align-items-center">
-            <p class="mb-0"><%= member.email %></p>
-
-              <%= link_to 'Add',
-                            user_projects_path(project_id: @project.id, user_id: member.id),
-                            :method => :put,
-                            :class => 'btn btn-xs btn-success' %> 
-          </div>
-      <% end %>
-    <% else %>
-      <p>No members to display</p>
-    <% end %>
-    <h5>Project Employees</h5>
-         <% @added_users = @members.where(id: @user_projects) %>
-     <% if  @added_users.count > 0 %>
-      <% @added_users.map do |member| %>  
-          <div class="d-flex mb-2 align-items-center">
-            <p class="mb-0"><%= member.email %></p>
-
-              <%= link_to 'Remove',
-                            user_project_path(member.user_projects.ids),
-                            method: :delete, data: { confirm: 'Are you sure?' },
-                            :class => 'btn btn-xs btn-danger' %> 
-          </div>
-      <% end %>
-    <% else %>
-      <p>No members in project</p>
-    <% end %>
+<% if @artifacts.exists? %>
+  <%= link_to 'New Artifact', new_artifact_path(project: @project) %>
+  <% @artifacts.map do |artifact| %>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col"><%= artifact.name %></th>
+          <th scope="col">Owner</th>
+          <th scope="col">Status</th>
+          <th scope="col">Priority</th>
+          <th scope="col">Timeline</th>
+          <th scope="col">Related Files</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Task 1</th>
+          <td>Member 1</td>
+          <td>80%</td>
+          <td>High</td>
+          <td>December 15, 2021 - January 7, 2021</td>
+          <td>pdf, docx , cad</td>
+        </tr>
+        
+      </tbody>
+    </table>
   <% end %>
-
-<%= link_to 'Upload Item', new_item_path(project_id: @project.id) %> |
-<%= link_to 'Edit Project', edit_project_path(@project) %> |
-<%= link_to 'Back', dashboard_path %>
-<%= render 'items/list', items: @project.items %>
-
-
-
-
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Owner</th>
-      <th scope="col">Status</th>
-      <th scope="col">Priority</th>
-      <th scope="col">Timeline</th>
-      <th scope="col">Related Files</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+<% else %>
+  <h1>Start Creating <%= link_to 'New Artifact', new_artifact_path(project: @project) %></h1>
+<% end %>

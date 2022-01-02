@@ -15,3 +15,5 @@ import 'bootstrap/dist/js/bootstrap'
 import 'bootstrap/dist/css/bootstrap'
 
 import "controllers"
+
+//= require_tree .
