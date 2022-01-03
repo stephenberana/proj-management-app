@@ -4,7 +4,6 @@ class ArtifactsController < ApplicationController
   # GET /artifacts or /artifacts.json
   def index
     @artifacts = Artifact.all
-
   end
 
   # GET /artifacts/1 or /artifacts/1.json

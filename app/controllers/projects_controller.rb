@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
   def show
     @members = Member.all
     @project = Project.find(params[:id])
-    @artifacts = Artifact.all
+    @artifacts = Artifact.where(project_id: params[:id])
   end
 
   # GET /projects/new
