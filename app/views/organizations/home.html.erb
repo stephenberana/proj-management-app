@@ -3,7 +3,7 @@
 
 <% if user_signed_in? %>
   <h2>Welcome </h2>
-  <%= link_to 'Add Project',  new_project_path %>
+<%= link_to 'Add Project',  new_project_path %>
 <%= link_to 'Sign Out',   destroy_admin_session_path, method: :delete %>
 <%= link_to 'Sign Out - member',    destroy_member_session_path, method: :delete %>
 
