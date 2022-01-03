@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_27_072553) do
+ActiveRecord::Schema.define(version: 2022_01_03_092647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,13 +28,16 @@ ActiveRecord::Schema.define(version: 2021_12_27_072553) do
     t.string "name"
     t.string "subdomain"
     t.string "domain"
+    t.string "plan"
   end
 
   create_table "payments", force: :cascade do |t|
     t.string "email"
     t.string "token"
+    t.bigint "organizations_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["organizations_id"], name: "index_payments_on_organizations_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -85,6 +88,7 @@ ActiveRecord::Schema.define(version: 2021_12_27_072553) do
   end
 
   add_foreign_key "items", "projects"
+  add_foreign_key "payments", "organizations", column: "organizations_id"
   add_foreign_key "projects", "organizations"
   add_foreign_key "user_projects", "projects"
   add_foreign_key "user_projects", "users"

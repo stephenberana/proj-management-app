@@ -33,7 +33,7 @@
       <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
     </div>
 
-    <%= fields_for(:tenant) do |w| %>
+    <%= fields_for(:organization) do |w| %>
       <div class="form-group col-md-6 no-left-padding">
         <%= w.label :name, 'Organization' %>
         <span class='description'>(Unique name for your group or organization)</span>
