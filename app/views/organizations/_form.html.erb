@@ -12,24 +12,24 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+    <% form.label :name %>
+    <%= form.text_field :name, class: "form-control mt-3 mb-3", style: 'width: 60%', placeholder: "Organization name" %>
   </div>
 
   <div class="field">
-    <%= form.label :subdomain %>
-    <%= form.text_field :subdomain %>
+    <% form.label :subdomain %>
+    <%= form.text_field :subdomain, class: "form-control mt-3 mb-3", style: 'width: 60%', placeholder: "Subdomain" %>
   </div>
 
   <div class="field">
-    <%= form.label :domain %>
-    <%= form.text_field :domain %>
+    <% form.label :domain %>
+    <%= form.text_field :domain,class: "form-control mt-3 mb-3", style: 'width: 60%', placeholder: "Domain" %>
   </div>
 
  <%= fields_for(:organization) do |w| %>
     <div class="form-group col-md-6 no-right-padding">
-        <%= w.label :plan %>
-        <%= w.select :plan, options_for_select(Plan.options, params[:plan]), {}, required: true, class: "form-control" %>
+        <%= w.label :plan, class: "h6" %>
+        <%= w.select :plan, options_for_select(Plan.options, params[:plan]), {}, required: true, class: "form-control mb-3" %>
       </div>
     <%end%>
 
@@ -37,43 +37,43 @@
   Stripe.setPublishableKey("<%= ENV['STRIPE_TEST_PUBLISHABLE_KEY'] %>");
 </script>
 
-Payment method:
+<h6>Payment method:</h6>
 
 <%= form_for @organization, url: update_plan_path, html: {class: "#{class_name_for_organization_form(@organization)}"} do |f| %>
     <% if @organization.payment.blank?%>
         <%= fields_for(:payment) do |p| %>
         <div class="row col-md-12">
             <div class="form-group col-md-4 no-left-padding">    
-                <%= p.label :card_number, "Card Number", data: {stripe: 'label'} %>
-                <%= p.text_field :card_number, class: "form-control", required: true, data: {stripe: 'number'} %>
+                <% p.label :card_number, "Card Number", data: {stripe: 'label'} %>
+                <%= p.text_field :card_number, class: "form-control mt-3 mb-3", placeholder: "Card Number", required: true, data: {stripe: 'number'} %>
             </div>
             <div class="form-group col-md-12">
-                <%= p.label :card_cvv, "Card CVV", data: {stripe: 'label'} %>
-                <%= p.text_field :card_cvv, class: "form-control", required: true, data: {stripe: 'cvv'} %>
+                <% p.label :card_cvv, "Card CVV", data: {stripe: 'label'} %>
+                <%= p.text_field :card_cvv,  class: "form-control mb-3", style: "width: 31%", placeholder: "Card CVV", required: true, data: {stripe: 'cvv'} %>
             </div>
             <div class="form-group col-md-6">
                 <div class="col-md-12">
-                        <%= p.label :card_expires, "Card Expiration Date", data: {stripe: 'label'} %>
+                        <%= p.label :card_expires, "Card Expiration Date", class: "h6", data: {stripe: 'label'} %>
                 </div>
                 <div class="col-md-3">
                         <%= p.select :card_expires_month,
                                     options_for_select(Payment.month_options),
                                     { include_blank: 'Month'},
                                     'data-stripe' => "exp-month",
-                                    class: "form-control", required: true %>
+                                    class: "form-control mt-3 mb-3", required: true %>
                 </div>
                 <div class="col-md-3">
                         <%= p.select :card_expires_year,
                                     options_for_select(Payment.year_options.push),
                                     { include_blank: 'Year'},
-                                    class: "form-control",
+                                    class: "form-control mb-3",
                                     data: {stripe: "exp-year"}, required: true 
                         %>
                 </div>
             </div>    
         </div>
     <div class="actions">
-      <%= form.submit %>
+      <%= form.submit "Create Organization", class: "btn btn-primary" %>
     </div>      
         <% end %>
     <% end %>    
