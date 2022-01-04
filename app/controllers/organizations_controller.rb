@@ -1,4 +1,5 @@
 class OrganizationsController < ApplicationController
+  protect_from_forgery prepend: true, with: :null_session
   before_action :set_organization, only: %i[ show edit update destroy ]
 
   # GET /organizations or /organizations.json

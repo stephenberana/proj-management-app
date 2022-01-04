@@ -1,5 +1,4 @@
 ActsAsTenant.configure do |config|
-    config.require_tenant = true
-
-    config.whitelist_organization_params = [:plan]
+    config.require_tenant = false
+    # config.whitelist_tenant_params = [:plan]
 end
