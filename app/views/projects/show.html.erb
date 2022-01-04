@@ -81,6 +81,7 @@
       <% if @tasks.exists? %>
         <% @tasks.map do |task| %>
           <tbody>
+          <% if task.artifact_id == artifact.id %>
             <tr>
               <th scope="row"><%= task.name %></th>
               <td>Member 1</td>
@@ -89,6 +90,7 @@
               <td>December 15, 2021 - January 7, 2021</td>
               <td>pdf, docx , cad</td>
             </tr>
+            <% end %>
           </tbody>
           
           <% end %>
