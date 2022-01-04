@@ -71,7 +71,6 @@
       <thead>
         <tr>
           <th scope="col"><%= artifact.name %></th>
-          <th scope="col">Owner</th>
           <th scope="col">Status</th>
           <th scope="col">Priority</th>
           <th scope="col">Timeline</th>
@@ -84,11 +83,10 @@
           <% if task.artifact_id == artifact.id %>
             <tr>
               <th scope="row"><%= task.name %></th>
-              <td>Member 1</td>
               <td>80%</td>
               <td>High</td>
               <td>December 15, 2021 - January 7, 2021</td>
-              <td>pdf, docx , cad</td>
+              <td>Upload files</td>
             </tr>
             <% end %>
           </tbody>
