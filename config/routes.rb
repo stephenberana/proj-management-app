@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tasks
   resources :artifacts
   resources :user_projects
   put 'user_projects', to: "user_projects#create"

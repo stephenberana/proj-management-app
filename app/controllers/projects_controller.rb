@@ -11,6 +11,7 @@ class ProjectsController < ApplicationController
     @members = Member.all
     @project = Project.find(params[:id])
     @artifacts = Artifact.where(project_id: params[:id])
+    @tasks = Task.where(artifact_id: @artifacts )
   end
 
   # GET /projects/new

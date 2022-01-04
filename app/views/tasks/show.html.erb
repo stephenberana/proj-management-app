@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @task.name %>
+</p>
+
+<p>
+  <strong>Starting date:</strong>
+  <%= @task.starting_date %>
+</p>
+
+<p>
+  <strong>Completion date:</strong>
+  <%= @task.completion_date %>
+</p>
+
+<p>
+  <strong>Priority:</strong>
+  <%= @task.priority %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @task.status %>
+</p>
+
+<p>
+  <strong>Artifact:</strong>
+  <%= @task.artifact_id %>
+</p>
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>

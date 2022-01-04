@@ -66,6 +66,7 @@
 <% if @artifacts.exists? %>
   <%= link_to 'New Artifact', new_artifact_path(project: @project) %>
   <% @artifacts.map do |artifact| %>
+   
     <table class="table table-hover">
       <thead>
         <tr>
@@ -77,18 +78,25 @@
           <th scope="col">Related Files</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <th scope="row">Task 1</th>
-          <td>Member 1</td>
-          <td>80%</td>
-          <td>High</td>
-          <td>December 15, 2021 - January 7, 2021</td>
-          <td>pdf, docx , cad</td>
-        </tr>
-        
-      </tbody>
+      <% if @tasks.exists? %>
+        <% @tasks.map do |task| %>
+          <tbody>
+            <tr>
+              <th scope="row"><%= task.name %></th>
+              <td>Member 1</td>
+              <td>80%</td>
+              <td>High</td>
+              <td>December 15, 2021 - January 7, 2021</td>
+              <td>pdf, docx , cad</td>
+            </tr>
+          </tbody>
+          
+          <% end %>
+      <% else %>
+        <p>Start Adding Tasks <%= link_to 'Add New Task', new_task_path(artifact_id: artifact.id, project: @project) %></p>
+      <% end %>
     </table>
+    <%= link_to 'Add New Task', new_task_path(artifact_id: artifact.id, project: @project) %>
   <% end %>
 <% else %>
   <h1>Start Creating <%= link_to 'New Artifact', new_artifact_path(project: @project) %></h1>
