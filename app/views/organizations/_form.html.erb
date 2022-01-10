@@ -12,21 +12,21 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.label :name, :class => 'control-label' %>
+    <%= form.text_field :name, :class => 'form-control w-50'%>
   </div>
 
   <div class="field">
-    <%= form.label :subdomain %>
-    <%= form.text_field :subdomain %>
+    <%= form.label :subdomain, :class => 'control-label mt-2' %>
+    <%= form.text_field :subdomain, :class => 'form-control w-50' %>
   </div>
 
   <div class="field">
-    <%= form.label :domain %>
-    <%= form.text_field :domain %>
+    <%= form.label :domain, :class => 'control-label mt-2' %>
+    <%= form.text_field :domain, :class => 'form-control w-50' %>
   </div>
 
-  <div class="actions">
+  <div class="actions mt-2">
     <%= form.submit %>
   </div>
 <% end %>
