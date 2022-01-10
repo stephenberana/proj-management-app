@@ -2,7 +2,7 @@
   Stripe.setPublishableKey("<%= ENV['STRIPE_TEST_PUBLISHABLE_KEY'] %>");
 </script>
 
-
+<%= javascript_pack_tag 'credit_card_form', 'data-turbolinks-track': 'reload' %>
 <%= bootstrap_devise_error_messages! %>
 
 <div class="panel panel-default">
@@ -34,9 +34,8 @@
 
  <%= fields_for( :organizations ) do |w| %>
         <div class="form-group col-md-6 no-right-padding">
-          <% w.label :plan %>
           <%= w.select :plan, options_for_select(Plan.options, params[:plan]), {}, required: true,
-                       class: "form-control", placeholder: "Plan type" %>
+                       class: "form-control"%>
         </div>
         <%= fields_for( :payment ) do |p| %>
           <div class="row col-md-12">
