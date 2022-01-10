@@ -23,10 +23,10 @@
             <ul class="list-group user_proj">
               <li class="list-group-item d-flex justify-content-between align-items-center"><%= member.email %>
 
-                <%= link_to 'Add',
+                <%= link_to '<i class="bi bi-person-check fs-4 text-success"></i>'.html_safe,
                               user_projects_path(project_id: @project.id, user_id: member.id),
                               :method => :put,
-                              :class => 'btn btn-xs btn-success' %> 
+                              :class => 'btn p-0' %> 
                               </li>
             </ul>
         <% end %>
@@ -46,10 +46,10 @@
               <ul class="list-group">
                <li class="list-group-item d-flex justify-content-between align-items-center"><%= member.email %>
 
-                <%= link_to 'Remove',
+                <%= link_to '<i class="bi bi-person-x fs-4 text-danger"></i>'.html_safe,
                               user_project_path(member.user_projects.ids),
                               method: :delete, data: { confirm: 'Are you sure?' },
-                              :class => 'btn btn-xs btn-danger' %> 
+                              :class => 'btn p-0' %> 
                               </li>
             </ul>
         <% end %>

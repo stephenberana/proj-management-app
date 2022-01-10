@@ -19,8 +19,10 @@
       <tr>
         <td><%= item.name %></td>
         <td><%= s3_link ActsAsTenant.current_tenant.id, item.key %></td>
-        <td><%= link_to 'Show', item, class: 'btn btn-xs btn-info' %></td>
-        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' %></td>
+        <td><%= link_to '<i class="bi bi-box-arrow-up-left text-info fs-5"></i>'.html_safe,
+         item, class: 'btn p-0' %></td>
+        <td><%= link_to '<i class="bi bi-trash fs-4 text-danger"></i>'.html_safe,
+         item, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn p-0' %></td>
       </tr>
   <% end %>
   </tbody>
