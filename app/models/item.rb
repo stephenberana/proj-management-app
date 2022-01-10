@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
   before_save :upload_to_s3
   attr_accessor :upload
-  belongs_to :project
+  belongs_to :task
 
 
   def upload_to_s3

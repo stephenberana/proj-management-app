@@ -61,7 +61,7 @@
 <%= link_to 'Upload Item', new_item_path(project_id: @project.id) %> |
 <%= link_to 'Edit Project', edit_project_path(@project) %> |
 <%= link_to 'Back', dashboard_path %>
-<%= render 'items/list', items: @project.items %>
+
 
 <% if @artifacts.exists? %>
   <%= link_to 'New Artifact', new_artifact_path(project: @project) %>
@@ -83,10 +83,10 @@
           <% if task.artifact_id == artifact.id %>
             <tr>
               <th scope="row"><%= task.name %></th>
-              <td>80%</td>
-              <td>High</td>
-              <td>December 15, 2021 - January 7, 2021</td>
-              <td>Upload files</td>
+              <td><%= task.status %></td>
+              <td><%= task.priority %></td>
+              <td><%= task.starting_date %> to <%= task.completion_date %> </td>
+              <td><%= link_to 'Upload File', new_item_path(task_id: task.id) %></td>
             </tr>
             <% end %>
           </tbody>

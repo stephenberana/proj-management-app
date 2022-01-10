@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
   # GET /items/new
   def new
     @item = Item.new
-    @item.project_id = params[:project_id]
+    @item.task_id = params[:task_id]
   end
 
 
@@ -45,6 +45,6 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:name, :project_id, :upload)
+      params.require(:item).permit(:name, :task_id, :upload)
     end
 end
