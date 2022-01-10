@@ -36,6 +36,10 @@
                     <li class="nav-item">
                         <%= link_to 'Home', root_path, class: "nav-link active" %>
                     </li>
+                      
+                    <li class="nav-item">
+                        <%= link_to 'Create Organization', new_organization_path, class:"nav-link text-white" %> 
+                    </li>
                 </ul>
             <% end %>
            
@@ -64,6 +68,7 @@
                         <li><%= link_to 'Member Sign In',  new_member_session_url(subdomain: @organization.subdomain), class: "dropdown-item" %></li>
                     </ul>
                 </div>
+             
                 <% end %>
                    </ul>
             <% end %>

@@ -10,17 +10,23 @@
 <% else %>
   <h3>Welcome! Enter Your Organization Subdomain</h3>
   <%= form_with url: search_organization_path, method: :get do |form| %>
-    <%= form.text_field :organization %>
-    <%= form.submit "Search" %>
+    <div class="input-group w-100 ">
+    <%= form.text_field :organization, class:"form-control fs-5 border-info shadow-none", placeholder:"Enter Subdomain" %>
+     <button class="input-group-text btn-lg bg-info text-dark border-info" id="basic-addon1" type="submit" value="Search" class="btn btn-success fw-bold"> 
+        <i class="bi bi-search bigger fs-4 " ></i>
+      </button>
+    </div>
   <% end %>
+  
   <% if @organization %>
-    <h4 class="my-3"><%= @organization.name %> </h4>
+  <div class="my-3 bg-secondary text-light rounded-3 px-4 py-2 text-uppercase">
+    <h4 class="text-center" ><%= @organization.name %> </h4>
     <div class='control-group' >
-    <%= link_to 'Log In as admin',  new_admin_session_url(subdomain: @organization.subdomain) %> | 
-    <%= link_to 'Log In as member',  new_member_session_url(subdomain: @organization.subdomain) %>
+    <%= link_to 'Sign In as admin',  new_admin_session_url(subdomain: @organization.subdomain), class:"text-info text-decoration-none" %> | 
+    <%= link_to 'Sign In as member',  new_member_session_url(subdomain: @organization.subdomain), class:"text-info text-decoration-none" %>
     </div>
   <% else %>
-     <%= link_to 'Create Organization', new_organization_path %> 
+     <%= link_to 'Create Organization', new_organization_path, class:"text-decoration-none btn btn-info mt-2 fw-bold" %> 
 <% end %>
 <% end %>
 </div>
