@@ -1,4 +1,8 @@
-<%= form_with(model: organization) do |form| %>
+<script language="Javascript">
+  Stripe.setPublishableKey("<%= ENV['STRIPE_TEST_PUBLISHABLE_KEY'] %>");
+</script>
+
+<%= form_with(model: organization, html: { role: "form", class: 'cc_form'}) do |form| %>
   <% if organization.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(organization.errors.count, "error") %> prohibited this organization from being saved:</h2>
@@ -32,10 +36,6 @@
         <%= w.select :plan, options_for_select(Plan.options, params[:plan]), {}, required: true, class: "form-control mb-3" %>
       </div>
     <%end%>
-
-<script language="Javascript">
-  Stripe.setPublishableKey("<%= ENV['STRIPE_TEST_PUBLISHABLE_KEY'] %>");
-</script>
 
 <h6>Payment method:</h6>
 

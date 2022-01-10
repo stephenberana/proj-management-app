@@ -58,6 +58,12 @@ def create
             log_action("Payment processing failed.", @organization)
             render :new and return
         end
-    end    
+    end
+
+    protected
+
+    def sign_up_params_organization()
+        params.require(:organizations).permit(:name, :subdomain, :domain, :plan)
+    end
 
 end

@@ -88,6 +88,13 @@ class OrganizationsController < ApplicationController
     render 'organizations/home'
   end
 
+  def change
+    @organization = Organization.find(params[:id])
+    Organization.set_current_organization @organization.id
+    session[:organization_id] = Organization.current_organization.id
+    redirect_to home_index_path, noticeL "Switched to organization: #{organization.name}"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_organization

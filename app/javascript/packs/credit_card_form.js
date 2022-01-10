@@ -35,7 +35,7 @@ $(document).ready(function() { // Ensures page loads completely before JS fires
         var $form  = $(form);
 
         if (plan_type == undefined) {
-            plan_type = $('#organization_plan :selected').val();
+            plan_type = $('#organizations_plan :selected').val();
         }
 
         if (plan_type === 'premium') {
@@ -50,12 +50,12 @@ $(document).ready(function() { // Ensures page loads completely before JS fires
         }
     };
 
-// Set up plan change even listener #organizationt_plan in the forms for class cc_from
-    $("#organization_plan").on("change", function(event) {
-        handlePlanChange($('#organization_plan :selected').val(), ".cc_form");
+// Set up plan change even listener #organization_plan in the forms for class cc_from
+    $("#organizations_plan").on("change", function(event) {
+        handlePlanChange($('#organizations_plan :selected').val(), ".cc_form");
     });
 
-// Call plan change handler so that the plan is set correctly in teh drop down when the page loads
+// Call plan change handler so that the plan is set correctly in the drop down when the page loads
     handlePlanChange(GetURLParameter('plan'), ".cc_form");
 
 // Function to handle the token received from Stripe and remove credit card fields
