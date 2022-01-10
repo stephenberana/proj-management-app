@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
         <% if user_signed_in? %>
-                <%= link_to 'Logo', dashboard_path, class: "navbar-brand font-weight-bold" %>
+                <iframe src="https://giphy.com/embed/YMwcy2pjfZc7bqON1x" style="pointer-events:none;" width="50" height="50" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
             <% else %>
-                <%= link_to 'Logo', root_path, class: "navbar-brand font-weight-bold" %>
+                <iframe src="https://giphy.com/embed/YMwcy2pjfZc7bqON1x" style="pointer-events:none;" width="50" height="50" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
         <% end %>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -34,7 +34,7 @@
                   <% else %>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <%= link_to 'Home', dashboard_path, class: "nav-link active" %>
+                        <%= link_to 'Home', root_path, class: "nav-link active" %>
                     </li>
                 </ul>
             <% end %>
