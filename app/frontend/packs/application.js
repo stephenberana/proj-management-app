@@ -8,6 +8,9 @@ import Turbolinks from "turbolinks";
 import * as ActiveStorage from "@rails/activestorage";
 import "channels";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import "controllers";
+import "bootstrap/dist/js/bootstrap";
+import "bootstrap/dist/css/bootstrap";
 
 Rails.start();
 Turbolinks.start();

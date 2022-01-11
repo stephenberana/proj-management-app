@@ -1,4 +1,5 @@
 class OrganizationsController < ApplicationController
+  protect_from_forgery prepend: true, with: :null_session
   before_action :set_organization, only: %i[ show edit update destroy ]
 
   # GET /organizations or /organizations.json
@@ -40,12 +41,30 @@ class OrganizationsController < ApplicationController
   # PATCH/PUT /organizations/1 or /organizations/1.json
   def update
     respond_to do |format|
-      if @organization.update(organization_params)
-        format.html { redirect_to @organization, notice: "Organization was successfully updated." }
-        format.json { render :show, status: :ok, location: @organization }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @organization.errors, status: :unprocessable_entity }
+      Organization.transaction do
+        if @organization.update(organization_params)
+          if @organization.plan == "premium" && @organization.payment.blank?
+            @payment = Payment.new({email: organization_params["email"],
+                                    token: params[:payment]["token"],
+                                    organization: @organization})
+            begin
+              @payment.process_payment
+              @payment.save
+            rescue Exception => e
+              flash[:error] = e.message
+              @payment.destroy
+              @organization.plan = "free"
+              @organization.save
+              
+              redirect_to edit_organization_path(@organization) and return
+            end
+          end
+          format.html { redirect_to @organization, notice: "Organization was successfully updated." }
+          format.json { render :show, status: :ok, location: @organization }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @organization.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -64,9 +83,16 @@ class OrganizationsController < ApplicationController
     if @organization
       @organization
     else
-      flash[:alert] = "Organization Doesn't exists"
+      flash[:alert] = "Organization doesn't exists."
     end
     render 'organizations/home'
+  end
+
+  def change
+    @organization = Organization.find(params[:id])
+    Organization.set_current_organization @organization.id
+    session[:organization_id] = Organization.current_organization.id
+    redirect_to home_index_path, notice: "Switched to organization: #{organization.name}"
   end
 
   private
@@ -77,6 +103,6 @@ class OrganizationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def organization_params
-      params.require(:organization).permit(:name, :subdomain, :domain)
+      params.require(:organization).permit(:name, :subdomain, :domain, :plan)
     end
 end

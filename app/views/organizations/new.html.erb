@@ -1,5 +1,38 @@
 <h1>New Organization</h1>
 
-<%= render 'form', organization: @organization %>
+<%= form_with(model: @organization, html: { role: "form", class: 'cc_form'}) do |form| %>
+  <% if @organization.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@organization.errors.count, "error") %> prohibited this organization from being saved:</h2>
+
+            <ul>
+                <% organization.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+                <% end %>
+            </ul>
+        </div>
+  <% end %>
+
+  <div class="field">
+    <% form.label :name %>
+    <%= form.text_field :name, class: "form-control mt-3 mb-3", style: 'width: 60%', placeholder: "Organization name" %>
+  </div>
+
+  <div class="field">
+    <% form.label :subdomain %>
+    <%= form.text_field :subdomain, class: "form-control mt-3 mb-3", style: 'width: 60%', placeholder: "Subdomain" %>
+  </div>
+
+  <div class="field">
+    <% form.label :domain %>
+    <%= form.text_field :domain,class: "form-control mt-3 mb-3", style: 'width: 60%', placeholder: "Domain" %>
+  </div>
+  
+
+<div class="actions">
+    <%= form.submit "Create Organization", class: "btn btn-primary" %>
+</div>      
 
 <%= link_to 'Back', root_path %>
+
+<% end %>
