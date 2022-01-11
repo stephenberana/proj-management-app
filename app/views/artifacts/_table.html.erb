@@ -1,0 +1,38 @@
+<% if @artifacts.exists? %>
+  <% @artifacts.map do |artifact| %>
+    <table class="table table-hover">
+    <thead>
+        <tr>
+        <th scope="col"><%= artifact.name %></th>
+        <th scope="col">Status</th>
+        <th scope="col">Priority</th>
+        <th scope="col">Timeline</th>
+        <th scope="col">Related Files</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% if @tasks.exists? %>
+        <% @tasks.map do |task| %>
+            <tr>
+          <% if task.artifact_id == artifact.id %>
+            <th scope="row"><%= task.name %></th>
+            <td><%= task.status %></td>
+            <td><%= task.priority %></td>
+            <td><%= task.starting_date %> to <%= task.completion_date %></td>
+            <td>Upload Files | <%= link_to 'Update Task', edit_task_path(task.id) %></td>
+          <% end %>
+            </tr>
+        <% end %>
+      <% else %>
+        <tr>
+         <td> <p> Start adding Tasks </p> </td>
+        </tr>
+      <% end %>
+    </tbody>
+    </table>
+    <%= link_to 'Add task', new_task_path(project_id: @project.id, artifact_id: artifact.id) %>
+  <% end %>
+<% else %>
+  <h1>Start Creating New Artifacts</h1>
+  
+<% end %>

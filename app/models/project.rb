@@ -3,4 +3,6 @@ class Project < ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :user_projects
   has_many :users, through: :user_projects
+  has_many :artifacts
+  has_many :tasks
 end

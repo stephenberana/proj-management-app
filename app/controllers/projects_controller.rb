@@ -9,7 +9,8 @@ class ProjectsController < ApplicationController
   # GET /projects/1 or /projects/1.json
   def show
     @members = Member.all
-
+    @artifacts = Artifact.where(project_id: params[:id])
+    @tasks = Task.where(project_id: params[:id])
   end
 
   # GET /projects/new

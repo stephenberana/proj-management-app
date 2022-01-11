@@ -10,18 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_27_072553) do
+ActiveRecord::Schema.define(version: 2022_01_11_065448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "items", force: :cascade do |t|
+  create_table "artifacts", force: :cascade do |t|
     t.string "name"
-    t.string "key"
     t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["project_id"], name: "index_items_on_project_id"
+    t.index ["project_id"], name: "index_artifacts_on_project_id"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string "name"
+    t.string "key"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "task_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -39,6 +46,29 @@ ActiveRecord::Schema.define(version: 2021_12_27_072553) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "completion_date"
     t.index ["organization_id"], name: "index_projects_on_organization_id"
+  end
+
+  create_table "related_files", force: :cascade do |t|
+    t.string "name"
+    t.bigint "task_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "key"
+    t.index ["task_id"], name: "index_related_files_on_task_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.string "starting_date"
+    t.string "completion_date"
+    t.string "status"
+    t.string "priority"
+    t.bigint "project_id", null: false
+    t.bigint "artifact_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["artifact_id"], name: "index_tasks_on_artifact_id"
+    t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 
   create_table "user_projects", force: :cascade do |t|
@@ -79,8 +109,10 @@ ActiveRecord::Schema.define(version: 2021_12_27_072553) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "items", "projects"
+  add_foreign_key "artifacts", "projects"
   add_foreign_key "projects", "organizations"
+  add_foreign_key "tasks", "artifacts"
+  add_foreign_key "tasks", "projects"
   add_foreign_key "user_projects", "projects"
   add_foreign_key "user_projects", "users"
 end

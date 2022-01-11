@@ -1,0 +1,60 @@
+<%= form_with(model: task) do |form| %>
+  <% if task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+        <% task.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :starting_date %>
+    <%= form.text_field :starting_date,
+    data: {
+      controller: "flatpickr",
+      flatpickr_date_format: "Y-m-d",
+      flatpickr_min_date: Time.zone.now
+    } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :completion_date %>
+    <%= form.text_field :completion_date,
+    data: {
+      controller: "flatpickr",
+      flatpickr_date_format: "Y-m-d",
+      flatpickr_min_date: Time.zone.now
+    } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, [["stuck", "stuck"], ["on going", "on-going"], ["done", "done"]], selected: "on-going" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :priority %>
+    <%= form.select :priority, [["low","low"], ["medium", "medium"], ["high", "high"]], selected: "high" %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :project_id, value: @project.id %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :artifact_id, value: @artifact.id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
