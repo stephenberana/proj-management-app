@@ -1,6 +1,9 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
+  def index
+    @items = Item.where(project_id: params[:project_id], task_id: params[:task_id])
+  end
   # GET /items/1 or /items/1.json
   def show
     @projects = Project.all
