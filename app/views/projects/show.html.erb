@@ -62,11 +62,10 @@
   </div>
   <% end %>
 
-<%= link_to 'Upload Item', new_item_path(project_id: @project.id) %> |
 <%= link_to 'Edit Project', edit_project_path(@project) %> |
-<%= link_to 'Back', dashboard_path %> |
+<%= link_to 'Create New Artifact', new_artifact_path(project_id: @project.id) %>  |
+<%= link_to 'Back', dashboard_path %>
 
-<%= link_to 'Create New Artifact', new_artifact_path(project_id: @project.id) %>
 
 <%= render 'artifacts/table' %>
 

@@ -21,7 +21,8 @@
     <%= form.file_field :upload, :class => 'form-control' %>
   </div>
 
-  <%= form.hidden_field :project_id %>
+  <%= form.hidden_field :project_id, value: @project.id %>
+  <%= form.hidden_field :task_id, value: @task.id %>
 
   <div class="actions">
     <%= form.submit %>

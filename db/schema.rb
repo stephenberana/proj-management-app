@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_11_065448) do
+ActiveRecord::Schema.define(version: 2022_01_11_134334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2022_01_11_065448) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "task_id"
+    t.integer "project_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -46,15 +47,6 @@ ActiveRecord::Schema.define(version: 2022_01_11_065448) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "completion_date"
     t.index ["organization_id"], name: "index_projects_on_organization_id"
-  end
-
-  create_table "related_files", force: :cascade do |t|
-    t.string "name"
-    t.bigint "task_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "key"
-    t.index ["task_id"], name: "index_related_files_on_task_id"
   end
 
   create_table "tasks", force: :cascade do |t|
