@@ -19,6 +19,8 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+    @project = Project.find(params[:project_id])
+    @artifact = Artifact.find(params[:artifact_id])
   end
 
   # POST /tasks or /tasks.json
@@ -38,9 +40,10 @@ class TasksController < ApplicationController
 
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
+    
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: "Task was successfully updated." }
+        format.html { redirect_to project_path(task_params[:project_id]), notice: "Task was successfully updated." }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +56,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: "Task was successfully destroyed." }
+      format.html { redirect_to project_path(params[:project_id]), notice: "Task was successfully destroyed." }
       format.json { head :no_content }
     end
   end

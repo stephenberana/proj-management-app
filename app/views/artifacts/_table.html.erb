@@ -8,6 +8,7 @@
         <th scope="col">Priority</th>
         <th scope="col">Timeline</th>
         <th scope="col">Related Files</th>
+        <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -19,7 +20,8 @@
             <td><%= task.status %></td>
             <td><%= task.priority %></td>
             <td><%= task.starting_date %> to <%= task.completion_date %></td>
-            <td>Upload Files | <%= link_to 'Update Task', edit_task_path(task.id) %></td>
+            <td>Upload Files</td>
+            <td><%= link_to 'Update Task', edit_task_path(id: task.id, project_id: @project.id, artifact_id: artifact.id) %> | <%= link_to 'Delete task', task_path(id: task.id, project_id: @project.id), method: :delete %></td>
           <% end %>
             </tr>
         <% end %>
