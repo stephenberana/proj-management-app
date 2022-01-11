@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
-  before_action :verify_organization
+
   
   # GET /projects or /projects.json
   def index
@@ -77,10 +77,4 @@ class ProjectsController < ApplicationController
       @organization = Organization.find(params[:organization_id])
     end
 
-    def verify_organization
-      unless params[:organization_id] == Organization.current_organization_id.to_s
-        redirect_to :root,
-        flash: {error: 'You are not authorized to view any organization other than your own.'}
-      end
-    end
 end

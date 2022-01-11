@@ -92,7 +92,7 @@ class OrganizationsController < ApplicationController
     @organization = Organization.find(params[:id])
     Organization.set_current_organization @organization.id
     session[:organization_id] = Organization.current_organization.id
-    redirect_to home_index_path, noticeL "Switched to organization: #{organization.name}"
+    redirect_to home_index_path, notice: "Switched to organization: #{organization.name}"
   end
 
   private
