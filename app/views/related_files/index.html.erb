@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Related Files</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Task</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @related_files.each do |related_file| %>
+      <tr>
+        <td><%= related_file.name %></td>
+        <td><%= related_file.task_id %></td>
+        <td><%= link_to 'Show', related_file %></td>
+        <td><%= link_to 'Edit', edit_related_file_path(related_file) %></td>
+        <td><%= link_to 'Destroy', related_file, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Related File', new_related_file_path %>

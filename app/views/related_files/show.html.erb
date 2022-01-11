@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @related_file.name %>
+</p>
+
+<p>
+  <strong>Task:</strong>
+  <%= @related_file.task_id %>
+</p>
+
+<%= link_to 'Edit', edit_related_file_path(@related_file) %> |
+<%= link_to 'Back', related_files_path %>
