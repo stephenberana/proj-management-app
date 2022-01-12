@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_11_134334) do
+ActiveRecord::Schema.define(version: 2022_01_11_065448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,16 +26,31 @@ ActiveRecord::Schema.define(version: 2022_01_11_134334) do
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.string "key"
+    t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "task_id"
-    t.integer "project_id"
+    t.index ["project_id"], name: "index_items_on_project_id"
   end
 
   create_table "organizations", force: :cascade do |t|
     t.string "name"
     t.string "subdomain"
     t.string "domain"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "plan"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "email"
+    t.string "token"
+    t.bigint "organizations_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organizations_id"], name: "index_payments_on_organizations_id"
+  end
+
+  create_table "plans", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -61,6 +76,13 @@ ActiveRecord::Schema.define(version: 2022_01_11_134334) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["artifact_id"], name: "index_tasks_on_artifact_id"
     t.index ["project_id"], name: "index_tasks_on_project_id"
+  end
+
+  create_table "tenants", force: :cascade do |t|
+    t.integer "tenant_id"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "user_projects", force: :cascade do |t|
@@ -102,6 +124,8 @@ ActiveRecord::Schema.define(version: 2022_01_11_134334) do
   end
 
   add_foreign_key "artifacts", "projects"
+  add_foreign_key "items", "projects"
+  add_foreign_key "payments", "organizations", column: "organizations_id"
   add_foreign_key "projects", "organizations"
   add_foreign_key "tasks", "artifacts"
   add_foreign_key "tasks", "projects"
