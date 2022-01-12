@@ -4,11 +4,11 @@
     <thead>
         <tr>
         <th scope="col"><%= artifact.name %></th>
-        <th scope="col">Status</th>
-        <th scope="col">Priority</th>
-        <th scope="col">Timeline</th>
-        <th scope="col">Related Files</th>
-        <th scope="col">Action</th>
+        <th scope="col" class="text-center">Status</th>
+        <th scope="col" class="text-center">Priority</th>
+        <th scope="col" class="text-center">Timeline</th>
+        <th scope="col" class="text-center">Related Files</th>
+        <th scope="col" class="text-center">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -17,11 +17,23 @@
             <tr>
           <% if task.artifact_id == artifact.id %>
             <th scope="row"><%= task.name %></th>
-            <td><%= task.status %></td>
-            <td><%= task.priority %></td>
-            <td><%= task.starting_date %> to <%= task.completion_date %></td>
-            <td><%= link_to 'See Files', items_path(project_id: @project.id, task_id: task.id) %> | <%= link_to 'Upload File', new_item_path(project_id: @project.id, task_id: task.id) %></td>
-            <td><%= link_to 'Update Task', edit_task_path(id: task.id, project_id: @project.id, artifact_id: artifact.id) %> | <%= link_to 'Delete task', task_path(id: task.id, project_id: @project.id), method: :delete %></td>
+            <% if task.status == 'done' %>
+            <td class="text-center"><%= '<i class="bi bi-clipboard-check fs-4 text-success"></i>'.html_safe %></td>
+            <% elsif task.status == 'on-going' %>
+            <td class="text-center"><%= '<i class="bi bi-clipboard fs-4 text-primary"></i>'.html_safe %></td>
+            <% else %>
+               <td class="text-center"><%= '<i class="bi bi-clipboard-x fs-4 text-danger"></i>'.html_safe %></td>
+             <% end %>
+            <% if task.priority == 'high' %>
+            <td class="text-center"><%= '<i class="bi bi-circle-fill text-danger"></i>'.html_safe %></td>
+            <% elsif task.priority == 'medium' %>
+            <td class="text-center"><%= '<i class="bi bi-circle-fill text-warning"></i>'.html_safe %></td>
+            <% else task.priority == 'medium' %>
+            <td class="text-center text-info"><%= '<i class="bi bi-circle-fill text-info"></i>'.html_safe %></td>
+           <% end %>
+            <td class="text-center"><%= task.starting_date %> to <%= task.completion_date %></td>
+            <td class="text-center"><%= link_to 'See Files', items_path(project_id: @project.id, task_id: task.id) %> | <%= link_to 'Upload File', new_item_path(project_id: @project.id, task_id: task.id) %></td>
+            <td class="text-center"><%= link_to 'Update Task', edit_task_path(id: task.id, project_id: @project.id, artifact_id: artifact.id) %> | <%= link_to 'Delete task', task_path(id: task.id, project_id: @project.id), method: :delete %></td>
           <% end %>
             </tr>
         <% end %>

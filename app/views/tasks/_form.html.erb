@@ -38,12 +38,12 @@
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status, [["stuck", "stuck"], ["on going", "on-going"], ["done", "done"]], selected: "on-going" %>
+    <%= form.select :status, [["stuck", "stuck"], ["on going", "on-going"], ["done", "done"]], selected: @task.status.nil? ? "on-going" : @task.status %>
   </div>
 
   <div class="field">
     <%= form.label :priority %>
-    <%= form.select :priority, [["low","low"], ["medium", "medium"], ["high", "high"]], selected: "high" %>
+    <%= form.select :priority, [["low","low"], ["medium", "medium"], ["high", "high"]], selected: @task.priority.nil? ? "high" : @task.priority %>
   </div>
 
   <div class="field">
