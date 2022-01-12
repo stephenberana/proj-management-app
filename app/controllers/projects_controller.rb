@@ -1,6 +1,8 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
+
+  
   # GET /projects or /projects.json
   def index
     @projects = current_user.type == "Admin" ? Project.all : current_user.projects
@@ -71,4 +73,9 @@ class ProjectsController < ApplicationController
     def project_params
       params.require(:project).permit(:name, :completion_date)
     end
+
+    def set_organization
+      @organization = Organization.find(params[:organization_id])
+    end
+
 end
