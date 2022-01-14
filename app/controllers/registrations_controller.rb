@@ -7,14 +7,11 @@ def create
     organization_params = sign_up_params_organization
     user_params = sign_up_params_user
 
-    sign_out_session!
-
     prep_signup_view(organization_params, user_params)
-
-    organization.transaction do
-        @organization = organization.create_new_organization(organization_params, user_params)
+  
+    Organization.transaction do
+        @organization.save
         if @organization.errors.empty? #organization created
-            
             if @organization.plan == 'premium'
                 @payment = Payment.new({email: user_params["email"],
                     token: params[:payment]["token"],
@@ -61,9 +58,16 @@ def create
     end
 
     protected
+    
+    def configure_permitted_parameters
+        devise_parameter_sanitizer.for(:sign_up, keys: [:email, :password, :confirm_password, organization_attibutes: [:plan]]
+    end
 
-    def sign_up_params_organization()
+    def sign_up_params_organization
         params.require(:organizations).permit(:name, :subdomain, :domain, :plan)
+    end
+    def sign_up_params_user
+        params.permit(:user)
     end
 
 end

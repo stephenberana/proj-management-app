@@ -1,9 +1,2 @@
-<% if @items.exists? %>
-<ul>
-  <% @items.map do |item| %>
-    <li><%= item.name %></li>
-  <% end %>
-</ul>
-<% else %>
-<h2>No files Uploaded</h2>
-<% end %>
+
+<%= render 'list' %>

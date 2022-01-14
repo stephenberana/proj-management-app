@@ -4,8 +4,7 @@ class Organization < ApplicationRecord
     has_many :projects, dependent: :destroy
     has_one :payment
     accepts_nested_attributes_for :payment
-    validates_uniqueness_of :name
-    validates_presence_of :name
+    validates :name, presence: true, uniqueness: true
 
     def can_create_projects?
       (plan == 'free' && projects.count < 1) || (plan == 'premium')
@@ -17,5 +16,10 @@ class Organization < ApplicationRecord
     
     def self.check_db(subdomain)
       where(subdomain: subdomain).first
+    end
+
+    def self.create_new_tenant(organization_params, user_params)
+      tenant = Tenant.new(organization_params_params)
+      organization.save    # create the org
     end
 end

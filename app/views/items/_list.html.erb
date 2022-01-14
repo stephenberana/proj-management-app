@@ -1,6 +1,6 @@
 
 <h1>Items</h1>
-  <% if @project.items.empty? %>
+  <% if @items.empty? %>
    
   <p> No items to display </p>
   <% else %>
@@ -15,7 +15,7 @@
 
   <tbody>
 
-    <% @project.items.each do |item| %>
+     <% @items.map do |item| %>
       <tr>
         <td><%= item.name %></td>
         <td><%= s3_link ActsAsTenant.current_tenant.id, item.key %></td>

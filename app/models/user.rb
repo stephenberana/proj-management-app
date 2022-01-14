@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable
   acts_as_tenant :organization
+  accepts_nested_attributes_for :organization
   has_many :user_projects
   has_many :projects, through: :user_projects
 end

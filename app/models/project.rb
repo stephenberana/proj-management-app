@@ -7,7 +7,8 @@ class Project < ApplicationRecord
   has_many :tasks
   has_many :items
   validate :free_plan_can_only_have_one_project
-
+  validates :name, presence: true, uniqueness: true
+  validates :completion_date, presence: true
   def free_plan_can_only_have_one_project
     if self.new_record? && (organization.projects.count > 0) && (organization.plan == 'free')
       errors.add(:base, "Free plans cannot have more than one project.")
@@ -23,7 +24,7 @@ class Project < ApplicationRecord
         user.projects.where(organization_id: organization.id)
       end
     else
-      if user.is_admin?
+      if user.type == "Admin"
         organization.projects.order(:id).limit(1)
       else
         user.projects.where(organization_id: organization.id).order(:id).limit(1)
