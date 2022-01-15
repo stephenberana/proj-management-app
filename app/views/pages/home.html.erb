@@ -6,7 +6,7 @@
   <% else %>
     <ul class="list-group">
     <% @projects.map do |project| %>
-      <li class="list-group-item"><%= link_to project.name, project %></li>
+      <li class="list-group-item text-dark"><%= link_to project.name, project, class:"text-dark text-decoration-none" %></li>
 
     <% end %>
     </ul>
@@ -25,16 +25,4 @@
   <% end %>
 <% else %>
   <h1> Welcome</h1>
-<% end %>
-
-<br>
-======================================<br>
-<% if admin_signed_in? %>
-  <strong>
-    TODO:
-  </strong><br>
-    Add Organization's Plan<br>
-    Edit Organization's details <br>
-    Change Organization's Plan <br>
-
 <% end %>
