@@ -49,10 +49,12 @@
                 <ul class="navbar-nav ml-auto">
                 <% if current_user.type === "Admin" %>
                     <li class="nav-item active">
+                    <li class="nav-item active"><span class="nav-link">Admin</span></li>
                         <%= link_to 'Sign Out', destroy_admin_session_path, method: :get, class: "nav-link" %>
                     </li>
                  <% else %>
                     <li class="nav-item active">
+                    <li class="nav-item active"><span class="nav-link">Member</span></li>
                         <%= link_to 'Sign Out', destroy_member_session_path, method: :get, class: "nav-link" %>
                     </li>
                 <% end %>

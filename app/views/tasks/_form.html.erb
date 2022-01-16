@@ -1,0 +1,60 @@
+<%= form_with(model: task) do |form| %>
+  <% if task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+        <% task.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, :class => 'form-control w-50' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :starting_date %>
+    <%= form.text_field :starting_date, :class => 'form-control w-50',
+    data: {
+      controller: "flatpickr",
+      flatpickr_date_format: "Y-m-d",
+      flatpickr_min_date: Time.zone.now
+    } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :completion_date %>
+    <%= form.text_field :completion_date, :class => 'form-control w-50',
+    data: {
+      controller: "flatpickr",
+      flatpickr_date_format: "Y-m-d",
+      flatpickr_min_date: Time.zone.now
+    } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status, class: "control-label mt-2" %>
+    <%= form.select :status, [["stuck", "stuck"], ["on going", "on-going"], ["done", "done"]], selected: @task.status.nil? ? "on-going" : @task.status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :priority, class: "control-label mt-2" %>
+    <%= form.select :priority, [["low","low"], ["medium", "medium"], ["high", "high"]], selected: @task.priority.nil? ? "high" : @task.priority %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :project_id, value: @project.id %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :artifact_id, value: @artifact.id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit(:class => 'btn btn-primary mt-2')%>
+  </div>
+<% end %>

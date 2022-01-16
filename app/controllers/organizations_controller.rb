@@ -1,6 +1,10 @@
 class OrganizationsController < ApplicationController
   protect_from_forgery prepend: true, with: :null_session
   before_action :set_organization, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, except: %i[create new home]
+  # before_action :require_admin, except: %i[create new]
+
+
 
   # GET /organizations or /organizations.json
   def home
@@ -104,5 +108,11 @@ class OrganizationsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def organization_params
       params.require(:organization).permit(:name, :subdomain, :domain, :plan)
+    end
+
+    def require_admin
+      return if current_user.type == "Admin"
+      flash[:alert] = 'Access denied'
+      redirect_to dashboard_path
     end
 end
