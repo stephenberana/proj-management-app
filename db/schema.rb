@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_03_092746) do
+ActiveRecord::Schema.define(version: 2022_01_14_230235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "artifacts", force: :cascade do |t|
+    t.string "name"
+    t.bigint "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_artifacts_on_project_id"
+  end
 
   create_table "items", force: :cascade do |t|
     t.string "name"
@@ -52,6 +60,20 @@ ActiveRecord::Schema.define(version: 2022_01_03_092746) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "completion_date"
     t.index ["organization_id"], name: "index_projects_on_organization_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.string "starting_date"
+    t.string "completion_date"
+    t.string "status"
+    t.string "priority"
+    t.bigint "project_id", null: false
+    t.bigint "artifact_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["artifact_id"], name: "index_tasks_on_artifact_id"
+    t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 
   create_table "user_projects", force: :cascade do |t|
@@ -95,6 +117,7 @@ ActiveRecord::Schema.define(version: 2022_01_03_092746) do
   add_foreign_key "items", "projects"
   add_foreign_key "payments", "organizations", column: "organizations_id"
   add_foreign_key "projects", "organizations"
+  add_foreign_key "tasks", "artifacts"
   add_foreign_key "user_projects", "projects"
   add_foreign_key "user_projects", "users"
 end
